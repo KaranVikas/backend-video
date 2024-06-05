@@ -1,10 +1,10 @@
 const asyncHandler = (requestHandler) => {
-    (req,res,next) => {
-        Promise.resolve(requestHandler(req,res, next)).reject((err) => next(err))
+    return (req,res,next) => {
+        Promise.resolve(requestHandler(req,res,next)).reject((err) => next(err))
     }
 }
 
-export {asyncHandler}
+export { asyncHandler }
 
 
 // H.O.F function which treat other functions as variables either takes as arguement or return as a function
