@@ -19,13 +19,13 @@ const userSchema = new Schema(
             lowercase: true,
             trim: true,
         },
-        fullname:{
+        fullName:{
             type:String,
             required:true,
             trim:true,
             index: true
         },
-        avtar:{
+        avatar:{
             type: String, //cloundinary url
             required: true,
         },
@@ -63,6 +63,10 @@ userSchema.methods.isPasswordCorrect = async function(password){
     return await bcrypt.compare(password, this.password)
 }
 
+// Concept --> access token  - to check authorization 
+// access token - short lived -- user validate thorugh access token
+// refresh token - long lived -- shared in database and with the user & checked 
+
 userSchema.methods.generateAccessToken = function(){
     return jwt.sign({
         _id: this._id,
@@ -88,4 +92,4 @@ userSchema.methods.generateRefreshToken = function(){
 )
 }
 
-export const User =  mongoose.Model("User",userSchema)
+export const User =  mongoose.model("User",userSchema)
